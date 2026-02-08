@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stuck with You Forever ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff758f;
+            --dark: #590d22;
+            --glass: rgba(255, 255, 255, 0.85);
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffccd5 0%, #fff0f3 100%);
+            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #heartCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Overlay Awal yang Elegan */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #ff4d6d, #800f2f);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-start {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: 0.4s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-start:hover { transform: scale(1.1) translateY(-5px); box-shadow: 0 20px 45px rgba(0,0,0,0.3); }
+
+        /* Main Container */
+        .wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 10px rgba(255, 77, 109, 0.2);
+        }
+
+        .main-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.5);
+            text-align: center;
+        }
+
+        .typewriter-box {
+            font-size: 1.2rem;
+            line-height: 2;
+            min-height: 120px;
+            color: #444;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        /* Proposal Section */
+        #proposal {
+            display: none;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px dashed #ffccd5;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .btn-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            height: 100px;
+            position: relative;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+            transition: 0.3s;
+        }
+
+        .yes-btn:hover { transform: scale(1.1); box-shadow: 0 15px 30px rgba(46, 204, 113, 0.5); }
+
+        .no-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            position: absolute;
+            transition: 0.1s;
+            z-index: 100;
+        }
+
+        /* Teddy SVG */
+        .teddy-svg {
+            width: 150px;
+            margin: 30px auto;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        #success {
+            display: none;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary);
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body onclick="spawnExplosion(event)">
+
+    <div id="overlay">
+        <h2 style="font-family: 'Dancing Script'; font-size: 3rem; margin-bottom: 30px;">For the one I love...</h2>
+        <button class="btn-start" onclick="initiate()">Klik di Sini ❤️</button>
+    </div>
+
+    <canvas id="heartCanvas"></canvas>
+
+    <audio id="bgMusic" loop>
+        <source src="https://g.top4top.io/m_3691w3do51.mp4" type="audio/mpeg">
+    </audio>
+
+    <div class="wrapper">
+        <header>
+            <h1>I Love You Adisaa</h1>
+        </header>
+
+        <div class="main-card">
+            <div id="typewriter" class="typewriter-box"></div>
+
+            <div id="proposal">
+                <div class="question">So... Will you be mine?</div>
+                <div class="btn-wrap">
+                    <button class="yes-btn" onclick="celebrate()">YES! ❤️</button>
+                    <button class="no-btn" id="noBtn" onmouseover="teleportNo()">No</button>
+                </div>
+            </div>
+
+            <div id="success">YES! I LOVE YOU! 💍💖</div>
+
+            <svg class="teddy-svg" viewBox="0 0 200 200">
+                <circle cx="100" cy="120" r="50" fill="#b08968"/><circle cx="100" cy="75" r="40" fill="#b08968"/>
+                <circle cx="70" cy="55" r="15" fill="#b08968"/><circle cx="130" cy="55" r="15" fill="#b08968"/>
+                <circle cx="85" cy="70" r="5" fill="#333"/><circle cx="115" cy="70" r="5" fill="#333"/>
+                <path d="M 90 90 Q 100 100 110 90" stroke="#333" fill="none" stroke-width="2"/>
+                <path d="M 80 120 L 120 120 L 100 145 Z" fill="#ff4d6d" />
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        let hearts = [];
+        let explosions = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Pesan Typewriter
+        const pesan = "Mungkin kita terpisah jarak, tapi kamu adalah bidadari yang membuat aku merasa jatuh cinta kepada mu, aku udah gamau lagi di sebut fantzy, tapi aku mau di sebut sayang hehe 😁, aku juga sebenarnya suka sama kamu udah lama sekali,tapi baru hari ini aku berani confess, maafkan aku jika tidak bisa memberi coklat pas mengungkapkan perasaan ku, karena kita virtual atau ldr, tapi aku serius mau menjadi milikmu, ga hanya jadi sebatas temann";
+        let charIndex = 0;
+
+        function startTyping() {
+            if (charIndex < pesan.length) {
+                document.getElementById('typewriter').innerHTML += pesan.charAt(charIndex);
+                charIndex++;
+                setTimeout(startTyping, 60);
+            } else {
+                document.getElementById('proposal').style.display = 'block';
+            }
+        }
+
+        // Kaburnya tombol No
+        function teleportNo() {
+            const btn = document.getElementById('noBtn');
+            const newX = Math.random() * (window.innerWidth - 150);
+            const newY = Math.random() * (window.innerHeight - 50);
+            btn.style.position = 'fixed';
+            btn.style.left = newX + 'px';
+            btn.style.top = newY + 'px';
+        }
+
+        function celebrate() {
+            document.getElementById('proposal').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            // Perbanyak hujan hati
+            for(let i=0; i<150; i++) hearts.push(new Heart());
+        }
+
+        class Heart {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 20;
+                this.size = Math.random() * 15 + 10;
+                this.speed = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.6 + 0.2;
+            }
+            update() { this.y -= this.speed; if (this.y < -20) this.reset(); }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.font = `${this.size}px serif`;
+                ctx.fillText('❤️', this.x, this.y);
+            }
+        }
+
+        function initiate() {
+            document.getElementById('overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+                startTyping();
+                for (let i = 0; i < 50; i++) hearts.push(new Heart());
+                animate();
+            }, 1200);
+            document.getElementById('bgMusic').play();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach(h => { h.update(); h.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        // Efek klik ledakan hati
+        function spawnExplosion(e) {
+            // Logika sederhana untuk efek visual saat klik
+            ctx.font = '20px serif';
+            ctx.fillText('💖', e.clientX, e.clientY);
+        }
+    </script>
+</body>
+</html>
